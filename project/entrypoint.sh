@@ -9,3 +9,5 @@ done
 echo "PostgreSQL started"
 
 exec "$@"
+
+# this is a test comment
