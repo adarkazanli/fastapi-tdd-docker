@@ -15,15 +15,24 @@ services:
       - DATABASE_TEST_URL=postgres://postgres:postgres@web-db:5432/web_test
     depends_on:
       - web-db
+    networks:
+      - test_network
       
   web-db:
     build:
       context: ./project/db
       dockerfile: Dockerfile
+    hostname: web-db 
     ports:
       - 5435:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      
+    networks:
+      - test_network
+
+networks:
+  test_network:
+    name: test_network
+
     
