@@ -3,8 +3,6 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class Users(models.Model):
-
-
     id = fields.IntField(pk=True)
     username = fields.CharField(max_length=20, unique=True)
     name = fields.CharField(max_length=50, null=True)
