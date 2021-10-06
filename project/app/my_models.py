@@ -25,5 +25,13 @@ class Users(models.Model):
         exclude = ["password_hash"]
 
 
+class Benefits(models.Model):
+    id = fields.IntField(pk=True)
+    benefit_name = fields.TextField()
+
+
 User_Pydantic = pydantic_model_creator(Users, name="User")
-UserIn_Pydantic = pydantic_model_creator(Users, name="UserIn", exclude_readonly=True)
+UserIn_Pydantic = pydantic_model_creator(
+    Users, name="UserIn", exclude_readonly=True)
+
+Benefits_Pydantic = pydantic_model_creator(Benefits, name="Benefit")
