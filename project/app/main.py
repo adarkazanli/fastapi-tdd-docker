@@ -1,11 +1,7 @@
-
-
 from typing import List
-
 from fastapi import FastAPI, HTTPException
-from models import User_Pydantic, UserIn_Pydantic, Users
 from pydantic import BaseModel
-
+from .my_models import User_Pydantic, UserIn_Pydantic, Users
 from tortoise.contrib.fastapi import HTTPNotFoundError, register_tortoise
 
 app = FastAPI(title="Tortoise ORM FastAPI example")
@@ -51,8 +47,8 @@ async def delete_user(user_id: int):
 
 register_tortoise(
     app,
-    db_url='postgres://postgres:postgres@172.22.0.2:5432/postgres',
-    modules={"models": ["models"]},
+    db_url='postgres://postgres:postgres@web-db:5432/postgres',
+    modules={"models": ["app.my_models"]},
     generate_schemas=True,
     add_exception_handlers=True,
 )
