@@ -1,3 +1,5 @@
+import os
+
 from typing import List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -41,14 +43,15 @@ async def update_user(user_id: int, user: UserIn_Pydantic):
 async def delete_user(user_id: int):
     deleted_count = await Users.filter(id=user_id).delete()
     if not deleted_count:
-        raise HTTPException(status_code=404, detail=f"User {user_id} not found")
+        raise HTTPException(
+            status_code=404, detail=f"User {user_id} not found")
     return Status(message=f"Deleted user {user_id}")
 
 
 register_tortoise(
     app,
-    db_url='postgres://postgres:postgres@web-db:5432/postgres',
+    db_url=os.environ.get("DATABASE_URL"),
     modules={"models": ["app.my_models"]},
-    generate_schemas=True,
+    generate_schemas=False,
     add_exception_handlers=True,
 )
