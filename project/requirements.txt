@@ -4,3 +4,5 @@ asyncpg==0.23.0
 tortoise-orm==0.17.4
 aerich==0.5.3
 pydantic~=1.8.2
+pytest==6.2.4
+requests==2.25.1
