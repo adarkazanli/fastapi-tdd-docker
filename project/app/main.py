@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from .my_models import User_Pydantic, UserIn_Pydantic, Users
 from tortoise.contrib.fastapi import HTTPNotFoundError, register_tortoise
 
+from .managers.query_manager import QueryManager, queryManager
+
 app = FastAPI(title="Tortoise ORM FastAPI example")
 
 
@@ -46,6 +48,18 @@ async def delete_user(user_id: int):
         raise HTTPException(
             status_code=404, detail=f"User {user_id} not found")
     return Status(message=f"Deleted user {user_id}")
+
+
+# Direct
+
+@app.get("/users_direct")
+async def get_direct_users():
+    return queryManager.get_users()
+
+
+@app.get("/users_by_id_direct/{user_id}")
+async def get_direct_users(user_id: int):
+    return queryManager.get_users_by_id(user_id)
 
 
 register_tortoise(
